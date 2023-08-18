@@ -74,12 +74,12 @@ const MasterLayout = (props) => {
 
                 <NavLink className={(navData) => navData.isActive ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2" } to="/Create" >
                     <TfiWrite className="side-bar-item-icon" />
-                    <span className="side-bar-item-caption">Create New</span>
+                    <span className="side-bar-item-caption">Set New Goal</span>
                 </NavLink>
 
                 <NavLink className={(navData) => navData.isActive ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2" } to="/All" >
                     <TfiLayoutListThumbAlt className="side-bar-item-icon" />
-                    <span className="side-bar-item-caption">New Task</span>
+                    <span className="side-bar-item-caption">New Goal</span>
                 </NavLink>
 
                 <NavLink className={(navData) => navData.isActive ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2" } to="/Progress" >

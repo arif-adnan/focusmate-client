@@ -1,8 +1,15 @@
 import axios from "axios";
 import { ErrorToast, SuccessToast } from "../helpers/FormHelper";
 import { getToken, setEmail, setOTP, setToken, setUserDetails } from "../helpers/SessionHelper";
+import {
+    SetCancelledGoal,
+    SetCompletedGoal,
+    SetNewGoal,
+    SetProgressGoal
+} from "../redux/state-slice/GoalSlice";
 import { SetProfile } from "../redux/state-slice/ProfileSlice";
 import { HideLoader, ShowLoader } from "../redux/state-slice/SettingsSlice";
+import { SetSummary } from "../redux/state-slice/SummarySlice";
 import store from "../redux/store/store";
 
 const BaseURL = "http://localhost:10000/api/v1";
@@ -213,4 +220,117 @@ export function RecoverResetPassRequest(email,OTP,password){
 }
 
 
-// goal requests
+// goal api requests
+export function NewGoalRequest(title, description) {
+    store.dispatch(ShowLoader());
+
+    let URL = BaseURL+"/createGoal";
+    let PostBody={"title":title, "description":description, status:"New"};
+
+    return axios.post(URL,PostBody,AxiosHeader).then((res)=>{
+        store.dispatch(HideLoader())
+        if(res.status===200){
+            SuccessToast("New Goal Created")
+            return true;
+        }
+        else{
+            ErrorToast("Something Went Wrong")
+            return false;
+        }
+
+    }).catch((err)=>{
+        ErrorToast("Something Went Wrong")
+        store.dispatch(HideLoader())
+        return false;
+    })
+}
+
+
+export function GoalListByStatus(Status){
+    store.dispatch(ShowLoader());
+    let URL=BaseURL+"/listGoalByStatus/"+Status;
+
+    axios.get(URL,AxiosHeader).then((res)=> {
+        store.dispatch(HideLoader())
+        if(res.status===200){
+            if(Status==="New"){
+                store.dispatch((SetNewGoal(res.data['data'])))
+            }
+            else if(Status==="Completed"){
+                store.dispatch(SetCompletedGoal(res.data['data']))
+            }
+            else if(Status==="Cancelled"){
+                store.dispatch(SetCancelledGoal(res.data['data']))
+            }
+            else if(Status==="Progress"){              store.dispatch(SetProgressGoal(res.data['data']))
+            }
+        }
+        else{
+                ErrorToast("Something Went Wrong")
+            }
+    }).catch((err)=>{
+        ErrorToast("Something Went Wrong")
+        store.dispatch(HideLoader())
+    });
+}
+
+
+
+export function SummaryRequest(){
+    store.dispatch(ShowLoader())
+    let URL=BaseURL+"/goalStatusCount";
+    axios.get(URL,AxiosHeader).then((res)=>{
+        store.dispatch(HideLoader())
+        if(res.status===200){
+            store.dispatch(SetSummary(res.data['data']))
+        }
+        else{
+            ErrorToast("Something Went Wrong")
+        }
+    }).catch((err)=>{
+        ErrorToast("Something Went Wrong")
+        store.dispatch(HideLoader())
+    });
+}
+
+
+export function DeleteRequest(id){
+    store.dispatch(ShowLoader())
+    let URL=BaseURL+"/deleteGoal/"+id;
+    return axios.get(URL,AxiosHeader).then((res)=>{
+        store.dispatch(HideLoader())
+        if(res.status===200){
+            SuccessToast("Delete Successful")
+            return true;
+        }
+        else{
+            ErrorToast("Something Went Wrong")
+            return false;
+        }
+    }).catch((err)=>{
+        ErrorToast("Something Went Wrong")
+        store.dispatch(HideLoader())
+        return false;
+    });
+}
+
+
+export function UpdateStatusRequest(id,status){
+    store.dispatch(ShowLoader())
+    let URL=BaseURL+"/updateGoalStatus/"+id+"/"+status;
+    return axios.get(URL,AxiosHeader).then((res)=>{
+        store.dispatch(HideLoader())
+        if(res.status===200){
+            SuccessToast("Status Updated")
+            return true;
+        }
+        else{
+            ErrorToast("Something Went Wrong")
+            return false;
+        }
+    }).catch((err)=>{
+        ErrorToast("Something Went Wrong")
+        store.dispatch(HideLoader())
+        return false;
+    });
+}
