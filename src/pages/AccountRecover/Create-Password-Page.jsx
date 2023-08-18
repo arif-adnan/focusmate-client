@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from "react";
+import React, { lazy, Suspense } from "react";
 import LazyLoader from "../../components/MasterLayout/LazyLoader";
 const CreatePassword =lazy(() => import('../../components/AccountRecover/Create-Password'));
 

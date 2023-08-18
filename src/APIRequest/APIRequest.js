@@ -100,7 +100,7 @@ export function ProfileUpdateRequest(email,firstName,lastName,mobile,password,ph
 
     store.dispatch(ShowLoader())
 
-    let URL=BaseURL+"/profileUpdate";
+    let URL=BaseURL+"/updateProfile";
 
     let PostBody={email:email,firstName:firstName,lastName:lastName,mobile:mobile,password:password,photo:photo}
     let UserDetails={email:email,firstName:firstName,lastName:lastName,mobile:mobile,photo:photo}

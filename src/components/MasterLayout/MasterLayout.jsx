@@ -6,14 +6,16 @@ import { MdMenuOpen } from "react-icons/md";
 import { TfiLayoutListThumbAlt, TfiUser, TfiWrite } from "react-icons/tfi";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/focusmate-logo1.jpg";
-
+import { getUserDetails, removeSessions } from "../../helpers/SessionHelper";
 
 
 const MasterLayout = (props) => {
 
     let contentRef,sideNavRef=useRef();
 
-    
+    const onLogout=()=>{
+        removeSessions();
+    }
 
     const MenuBarClickHandler = () => {
         let sideNav = sideNavRef;
@@ -44,18 +46,18 @@ const MasterLayout = (props) => {
 
                     <div className="float-right h-auto d-flex">
                         <div className="user-dropdown">
-                            <img className="icon-nav-img icon-nav"  alt=""/>
+                            <img className="icon-nav-img icon-nav" src={getUserDetails()['photo']} alt=""/>
                             <div className="user-dropdown-content ">
                                 <div className="mt-4 text-center">
-                                    <img className="icon-nav-img" alt=""/>
-                                    <h6></h6>
+                                <img className="icon-nav-img" src={getUserDetails()['photo']} alt=""/>
+                                    <h6>{getUserDetails()['firstName']}</h6>
                                     <hr className="user-dropdown-divider  p-0"/>
                                 </div>
                                 <NavLink to="/Profile" className="side-bar-item">
                                     <TfiUser className="side-bar-item-icon" />
                                     <span className="side-bar-item-caption">Profile</span>
                                 </NavLink>
-                                <a  className="side-bar-item">
+                                <a onClick={onLogout} className="side-bar-item">
                                     <AiOutlineLogout className="side-bar-item-icon" />
                                     <span className="side-bar-item-caption">Logout</span>
                                 </a>
@@ -92,9 +94,9 @@ const MasterLayout = (props) => {
                     <span className="side-bar-item-caption">Completed</span>
                 </NavLink>
 
-                <NavLink className={(navData) => navData.isActive ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2" }  to="/Canceled" >
+                <NavLink className={(navData) => navData.isActive ? "side-bar-item-active side-bar-item mt-2" : "side-bar-item mt-2" }  to="/Cancelled" >
                     <GiCancel className="side-bar-item-icon" />
-                    <span className="side-bar-item-caption">Canceled</span>
+                    <span className="side-bar-item-caption">Cancelled</span>
                 </NavLink>
 
             </div>

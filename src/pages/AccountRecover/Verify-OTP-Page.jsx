@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from "react";
+import React, { lazy, Suspense } from "react";
 import LazyLoader from "../../components/MasterLayout/LazyLoader";
 const VerifyOTP =lazy(() => import('../../components/AccountRecover/Verify-OTP'));
 
