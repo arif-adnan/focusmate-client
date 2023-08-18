@@ -34,9 +34,9 @@ const Login = () => {
                             <div className="card-body">
                                 <h4>SIGN IN</h4>
                                 <br/>
-                                <input ref={(input)=>emailRef=input} placeholder="User Email" className="form-control animated fadeInUp" type="email"/>
+                                <input ref={(input)=>emailRef=input} placeholder="User Email" className="form-control animated fadeInUp" type="email" value="arif007@gmail.com"/>
                                 <br/>
-                                <input ref={(input)=>passRef=input}  placeholder="User Password" className="form-control animated fadeInUp" type="password"/>
+                                <input ref={(input)=>passRef=input}  placeholder="User Password" className="form-control animated fadeInUp" type="password" value="123456789"/>
                                 <br/>
                                 <button onClick={SubmitLogin} className="btn w-100 animated fadeInUp float-end btn-primary">Next</button>
                                 <hr/>
