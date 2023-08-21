@@ -12,7 +12,7 @@ import { HideLoader, ShowLoader } from "../redux/state-slice/SettingsSlice";
 import { SetSummary } from "../redux/state-slice/SummarySlice";
 import store from "../redux/store/store";
 
-const BaseURL = "http://localhost:10000/api/v1";
+const BaseURL = "https://focusmate-server.vercel.app/api/v1";
 
 const AxiosHeader = {headers: {"token": getToken()}};
 
